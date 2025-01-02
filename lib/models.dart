@@ -1,12 +1,7 @@
-import 'dart:ffi';
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:ffi_c_plugin/ffi_c_plugin.dart' as c_plugin;
-import 'package:ffi_c_plugin/ffi_c_plugin_bindings_generated.dart';
-import 'package:ffi_rust_plugin/ffi_rust_plugin.dart' as rust_plugin;
-import 'package:ffi_rust_plugin/ffi_rust_plugin_bindings_generated.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:n_body_dart_ffi/constants.dart';
@@ -15,8 +10,6 @@ import 'package:vector_math/vector_math_64.dart';
 
 enum Method {
   dart,
-  rust,
-  c,
   dartNative;
 
   Widget methodIcon() {
@@ -37,22 +30,6 @@ enum Method {
             size: 48,
           ),
         );
-      case Method.rust:
-        return Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 24.0,
-            vertical: 16.0,
-          ),
-          child: Image.asset('assets/rust.png', width: 48),
-        );
-      case Method.c:
-        return Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 24.0,
-            vertical: 16.0,
-          ),
-          child: Image.asset('assets/cpp.png', width: 48),
-        );
     }
   }
 
@@ -62,10 +39,6 @@ enum Method {
         return "Dart";
       case Method.dartNative:
         return "???";
-      case Method.rust:
-        return "Rust";
-      case Method.c:
-        return "C++";
     }
   }
 }
@@ -283,57 +256,5 @@ class NBodySimulationManagerDartNative
       particles[i].posX += particles[i].velocityX * Constants.deltaT;
       particles[i].posY += particles[i].velocityY * Constants.deltaT;
     }
-  }
-}
-
-class NBodySimulationManagerRust
-    extends SimulationManager<Pointer<ParticleRust>> {
-  NBodySimulationManagerRust({
-    required super.particlesAmount,
-    required super.canvasSize,
-  });
-
-  Pointer<NBody> ffiRust = nullptr;
-
-  @override
-  void init() {
-    ffiRust = rust_plugin.initRust(
-      particlesAmount,
-      canvasSize.width,
-      canvasSize.height,
-      Constants.minMass,
-      Constants.maxMass,
-      ffiRust,
-    );
-    updateParticles();
-  }
-
-  @override
-  void updateParticles() {
-    _particles = rust_plugin.updateParticlesRust(ffiRust);
-  }
-}
-
-class NBodySimulationManagerC extends SimulationManager<Pointer<Particle>> {
-  NBodySimulationManagerC({
-    required super.particlesAmount,
-    required super.canvasSize,
-  });
-
-  @override
-  void init() {
-    c_plugin.initC(
-      particlesAmount,
-      canvasSize.width,
-      canvasSize.height,
-      Constants.minMass,
-      Constants.maxMass,
-    );
-    updateParticles();
-  }
-
-  @override
-  void updateParticles() {
-    _particles = c_plugin.updateParticlesC();
   }
 }

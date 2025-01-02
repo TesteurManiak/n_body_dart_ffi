@@ -1,14 +1,8 @@
-import 'dart:ffi' as ffi;
-
-import 'package:ffi_c_plugin/ffi_c_plugin_bindings_generated.dart';
-import 'package:ffi_rust_plugin/ffi_rust_plugin_bindings_generated.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:n_body_dart_ffi/models.dart';
-import 'package:n_body_dart_ffi/painters/c_painter.dart';
 import 'package:n_body_dart_ffi/painters/dart_native_painter.dart';
 import 'package:n_body_dart_ffi/painters/dart_painter.dart';
-import 'package:n_body_dart_ffi/painters/rust_painter.dart';
 
 class NBodyDrawer extends StatefulWidget {
   final Size canvasSize;
@@ -57,24 +51,6 @@ class _NBodyDrawerState extends State<NBodyDrawer>
         )..init();
         painter = NBodyPainterDartNative(
           particles: simulationManager.particles as List<ParticleDartNative>,
-        );
-      case Method.rust:
-        simulationManager = NBodySimulationManagerRust(
-          particlesAmount: widget.particlesAmount,
-          canvasSize: widget.canvasSize,
-        )..init();
-        painter = NBodyPainterRust(
-          particles: simulationManager.particles as ffi.Pointer<ParticleRust>,
-          particlesAmount: widget.particlesAmount,
-        );
-      case Method.c:
-        simulationManager = NBodySimulationManagerC(
-          particlesAmount: widget.particlesAmount,
-          canvasSize: widget.canvasSize,
-        )..init();
-        painter = NBodyPainterC(
-          particles: simulationManager.particles as ffi.Pointer<Particle>,
-          particlesAmount: widget.particlesAmount,
         );
     }
 
