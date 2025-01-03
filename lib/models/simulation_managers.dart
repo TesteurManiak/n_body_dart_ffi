@@ -196,14 +196,15 @@ class NBodySimulationManagerExperiment
 
   @override
   void init() {
+    final rnd = Random();
     _particles = List.generate(
       particlesAmount,
       (index) {
         double radiusX = canvasSize.width / 2;
         double radiusY = canvasSize.height / 2;
         double circleRadius = min(radiusX, radiusY);
-        double randRadius = Random().nextDoubleInRange(0, circleRadius);
-        double angle = Random().nextDoubleInRange(-pi, pi);
+        double randRadius = rnd.nextDoubleInRange(0, circleRadius);
+        double angle = rnd.nextDoubleInRange(-pi, pi);
 
         double positionX = radiusX + cos(angle) * randRadius;
         double positionY = radiusY + sin(angle) * randRadius;
@@ -217,7 +218,7 @@ class NBodySimulationManagerExperiment
           velocityX: velocityX,
           velocityY: velocityY,
           force: 0.0,
-          mass: Random().nextDoubleInRange(
+          mass: rnd.nextDoubleInRange(
             Constants.minMass,
             Constants.maxMass,
           ),
