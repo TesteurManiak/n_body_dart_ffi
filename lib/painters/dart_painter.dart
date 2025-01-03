@@ -8,10 +8,8 @@ class NBodyPainterDart extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint();
+    final paint = Paint()..color = kParticleColor;
     for (final particle in particles) {
-      paint.color = particle.color;
-
       canvas.drawCircle(
         Offset(particle.pos.x, particle.pos.y),
         particle.mass / 1500,
@@ -21,7 +19,5 @@ class NBodyPainterDart extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
-  }
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }

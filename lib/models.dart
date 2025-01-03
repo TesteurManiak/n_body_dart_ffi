@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:n_body_dart_ffi/constants.dart';
 import 'package:n_body_dart_ffi/extensions.dart';
-import 'package:vector_math/vector_math_64.dart';
+import 'package:vector_math/vector_math_64.dart' hide Colors;
+
+const kParticleColor = Colors.yellow;
 
 enum Method {
   dart,
@@ -16,19 +18,13 @@ enum Method {
     switch (this) {
       case Method.dart:
         return Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 24.0,
-            vertical: 16.0,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           child: Image.asset('assets/dart.png', width: 48),
         );
       case Method.dartNative:
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Icon(
-            MdiIcons.help,
-            size: 48,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Icon(MdiIcons.help, size: 48),
         );
     }
   }
@@ -48,14 +44,12 @@ class ParticleDart {
   Vector2 pos;
   Vector2 velocity;
   double force;
-  ui.Color color;
 
   ParticleDart({
     required this.mass,
     required this.pos,
     required this.velocity,
     required this.force,
-    required this.color,
   });
 }
 
@@ -84,8 +78,8 @@ abstract class SimulationManager<T> {
 
   SimulationManager({required this.particlesAmount, required this.canvasSize});
 
-  void init() {}
-  void updateParticles() {}
+  void init();
+  void updateParticles();
   T get particles => _particles;
 }
 
@@ -116,14 +110,12 @@ class NBodySimulationManagerDart extends SimulationManager<List<ParticleDart>> {
         double velocityX = cos(angle - pi / 2) * (randRadius) * 10;
         double velocityY = sin(angle - pi / 2) * (randRadius) * 10;
         var mass = range(Constants.minMass, Constants.maxMass);
-        var color = const ui.Color.fromARGB(255, 255, 230, 0);
 
         return ParticleDart(
           mass: mass,
           pos: Vector2(positionX, positionY),
           velocity: Vector2(velocityX, velocityY),
           force: 0.0,
-          color: color,
         );
       },
     );
