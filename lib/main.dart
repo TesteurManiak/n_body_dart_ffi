@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
-                method.methodName(),
+                method.methodName,
                 style: const TextStyle(fontSize: 48),
               ),
             ),

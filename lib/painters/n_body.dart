@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:n_body_dart_ffi/models.dart';
+import 'package:n_body_dart_ffi/models/particles.dart';
+import 'package:n_body_dart_ffi/models/simulation_managers.dart';
 import 'package:n_body_dart_ffi/painters/dart_native_painter.dart';
 import 'package:n_body_dart_ffi/painters/dart_painter.dart';
 
@@ -52,6 +54,11 @@ class _NBodyDrawerState extends State<NBodyDrawer>
         painter = NBodyPainterDartNative(
           particles: simulationManager.particles as List<ParticleDartNative>,
         );
+      case Method.experiment:
+        simulationManager = NBodySimulationManagerExperiment(
+          particlesAmount: widget.particlesAmount,
+          canvasSize: widget.canvasSize,
+        )..init();
     }
 
     ticker = Ticker(tick);
