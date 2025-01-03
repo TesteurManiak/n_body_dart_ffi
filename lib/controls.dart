@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart' show FrameTimingSummarizer;
-import 'package:n_body_dart_ffi/models.dart';
+import 'package:n_body_dart_ffi/models/methods.dart';
 
 class Controls extends StatelessWidget {
   const Controls({

@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:n_body_dart_ffi/constants.dart';
 import 'package:n_body_dart_ffi/models/particles.dart';
 
-class NBodyPainterDart extends CustomPainter {
-  final List<ParticleDart> particles;
+class NBodyPainterExperiment extends CustomPainter {
+  const NBodyPainterExperiment({required this.particles});
 
-  const NBodyPainterDart({required this.particles});
+  final List<ParticleDartNative> particles;
 
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = Constants.particleColor;
     for (final particle in particles) {
       canvas.drawCircle(
-        Offset(particle.pos.x, particle.pos.y),
+        Offset(particle.posX, particle.posY),
         particle.mass / 1500,
         paint,
       );

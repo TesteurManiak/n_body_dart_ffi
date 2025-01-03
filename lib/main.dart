@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:n_body_dart_ffi/controls.dart';
-import 'package:n_body_dart_ffi/models.dart';
+import 'package:n_body_dart_ffi/models/methods.dart';
 import 'package:n_body_dart_ffi/painters/n_body.dart';
 
 void main() {

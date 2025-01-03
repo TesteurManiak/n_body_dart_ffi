@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:n_body_dart_ffi/models.dart';
+import 'package:n_body_dart_ffi/models/methods.dart';
 import 'package:n_body_dart_ffi/models/particles.dart';
 import 'package:n_body_dart_ffi/models/simulation_managers.dart';
 import 'package:n_body_dart_ffi/painters/dart_native_painter.dart';
 import 'package:n_body_dart_ffi/painters/dart_painter.dart';
+import 'package:n_body_dart_ffi/painters/experiment_painter.dart';
 
 class NBodyDrawer extends StatefulWidget {
   final Size canvasSize;
@@ -59,6 +60,9 @@ class _NBodyDrawerState extends State<NBodyDrawer>
           particlesAmount: widget.particlesAmount,
           canvasSize: widget.canvasSize,
         )..init();
+        painter = NBodyPainterExperiment(
+          particles: simulationManager.particles as List<ParticleDartNative>,
+        );
     }
 
     ticker = Ticker(tick);

@@ -5,7 +5,7 @@ import 'package:n_body_dart_ffi/models/particles.dart';
 class NBodyPainterDartNative extends CustomPainter {
   final List<ParticleDartNative> particles;
 
-  NBodyPainterDartNative({required this.particles});
+  const NBodyPainterDartNative({required this.particles});
 
   @override
   void paint(Canvas canvas, Size size) {
